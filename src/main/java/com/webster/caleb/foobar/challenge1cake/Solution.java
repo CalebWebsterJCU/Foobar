@@ -2,23 +2,27 @@ package com.webster.caleb.foobar.challenge1cake;
 
 public class Solution {
     
-    public static void main(String[] args) {
-        System.out.println(solution("abcabababababcabababab"));
-    }
-    
     public static int solution(String x) {
+        return getMaxPieces(x);
+    }
+    /*
+    Returns the max number of equal pieces that a string can be divided into.
+    This method serves as an abstraction for the private recursive method which
+    shares its name. It calls this private method with sliceSize set to 1.
+     */
+    public static int getMaxPieces(String x) {
         return getMaxPieces(x, 1);
     }
     
     /*
-    Returns the maximum number of equal pieces of a certain length that a string
+    Returns the max number of equal substrings of a certain length that a string
     can be divided into.
      */
-    public static int getMaxPieces(String x, int sliceSize) {
+    private static int getMaxPieces(String x, int sliceSize) {
         if (sliceSize < 1 || sliceSize > x.length()) {
-            throw new IllegalArgumentException("Slice size must be between 1 and string length.");
+            return 0;
         }
-        if (x.length() % sliceSize == 0 && substringRepeats(x, x.substring(0, sliceSize), 0)) {
+        if (x.length() % sliceSize == 0 && isRepeatedSubstring(x, x.substring(0, sliceSize), 0)) {
             return x.length() / sliceSize;
         } else {
             return getMaxPieces(x, sliceSize+1);
@@ -34,28 +38,23 @@ public class Solution {
 //    }
     
     /*
-    Returns true if a given string is comprised of repetitions of a substring
-    which starts at i and has a certain length.
+    Returns true if a given string is comprised of repetitions of a substring.
+    This method serves as an abstraction for the private recursive method which
+    shares its name. It calls this private method with checkIndex set to 0.
      */
-//    public static boolean substringRepeats(String string, int subLength, int subStart) {
-//        int ii = subStart+subLength;
-//        if (subStart == string.length()) {
-//            return true;
-//        } else if (string.substring(subStart, ii).equals(string.substring(0, subLength))) {
-//            return substringRepeats(string, subLength, ii);
-//        }
-//        return false;
-//    }
-    
+    public static boolean isRepeatedSubstring(String string, String substring) {
+        return isRepeatedSubstring(string, substring, 0);
+    }
     /*
     Returns true if a given string is comprised of repetitions of a substring
-    which starts at i and has a certain length. 0123456789
+    from checkIndex onwards.
      */
-    public static boolean substringRepeats(String string, String substring, int checkIndex) {
+    private static boolean isRepeatedSubstring(String string, String substring, int checkIndex) {
+        if (string.length() == 0 || substring.length() == 0 || string.length() % substring.length() != 0) {return false;}
         if (checkIndex == string.length()) {
             return true;
         } else if (string.substring(checkIndex, checkIndex+substring.length()).equals(substring)) {
-            return substringRepeats(string, substring, checkIndex+substring.length());
+            return isRepeatedSubstring(string, substring, checkIndex+substring.length());
         }
         return false;
     }
