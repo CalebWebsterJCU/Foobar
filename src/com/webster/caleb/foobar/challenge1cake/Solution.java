@@ -1,6 +1,11 @@
-package com.webster.caleb.foobar.thecakeisnotalie;
+package com.webster.caleb.foobar.challenge1cake;
 
 public class Solution {
+    
+    public static void main(String[] args) {
+        String str = "abcabababababcabababab";
+        System.out.println(Solution.getMaxPieces(str, 1));
+    }
     
     public static int solution(String x) {
         return getMaxPieces(x, 1);
