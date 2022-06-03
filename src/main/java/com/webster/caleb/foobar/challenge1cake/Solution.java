@@ -20,10 +20,18 @@ public class Solution {
     can be divided into.
      */
     private static int getMaxPieces(String string, int sliceSize) {
+        if (string.isEmpty()) return 0;
         if (isRepeatedSubstring(string, string.substring(0, sliceSize))) {
             return string.length() / sliceSize;
         } else {
-            return getMaxPieces(string, sliceSize+1);
+            int newSliceSize = sliceSize + 2;  // Skip opposite parity
+            if (sliceSize == 1 && string.length() % 2 == 0) {
+                newSliceSize = 2;  // Check 1 & 2 for even numbers
+            }
+            if (newSliceSize > string.length() / 2) {
+                newSliceSize = string.length();  // Skip to end when > half
+            }
+            return getMaxPieces(string, newSliceSize);`
         }
     }
     
@@ -43,10 +51,14 @@ public class Solution {
     length.
      */
     private static boolean isRepeatedSubstring(String string, String substring, int checkIndex) {
-        if (string.length() == 0 || substring.length() == 0 || string.length() % substring.length() != 0) {return false;}
+        if (string.isEmpty() || substring.isEmpty() || string.length() % substring.length() != 0) {
+            return false;
+        }
         if (checkIndex == string.length()) {
             return true;
-        } else if (string.substring(checkIndex, checkIndex+substring.length()).equals(substring)) {
+        }
+        String substringToCheck = string.substring(checkIndex, checkIndex+substring.length());
+        if (substringToCheck.equals(substring)) {
             return isRepeatedSubstring(string, substring, checkIndex+substring.length());
         }
         return false;
