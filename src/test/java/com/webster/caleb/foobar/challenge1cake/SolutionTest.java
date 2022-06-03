@@ -12,6 +12,7 @@ class SolutionTest {
         assertFalse(Solution.isRepeatedSubstring("1", ""));
         assertTrue(Solution.isRepeatedSubstring("a", "a"));
         assertFalse(Solution.isRepeatedSubstring("ab", "a"));
+        assertFalse(Solution.isRepeatedSubstring("ab", "abab"));
         assertFalse(Solution.isRepeatedSubstring("abc", "ab"));
         assertTrue(Solution.isRepeatedSubstring("abc", "abc"));
         assertFalse(Solution.isRepeatedSubstring("a-b-c", "a-"));

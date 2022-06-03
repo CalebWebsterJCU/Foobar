@@ -5,37 +5,27 @@ public class Solution {
     public static int solution(String x) {
         return getMaxPieces(x);
     }
+    
     /*
     Returns the max number of equal pieces that a string can be divided into.
     This method serves as an abstraction for the private recursive method which
     shares its name. It calls this private method with sliceSize set to 1.
      */
-    public static int getMaxPieces(String x) {
-        return getMaxPieces(x, 1);
+    public static int getMaxPieces(String string) {
+        return getMaxPieces(string, 1);
     }
     
     /*
     Returns the max number of equal substrings of a certain length that a string
     can be divided into.
      */
-    private static int getMaxPieces(String x, int sliceSize) {
-        if (sliceSize < 1 || sliceSize > x.length()) {
-            return 0;
-        }
-        if (x.length() % sliceSize == 0 && isRepeatedSubstring(x, x.substring(0, sliceSize), 0)) {
-            return x.length() / sliceSize;
+    private static int getMaxPieces(String string, int sliceSize) {
+        if (isRepeatedSubstring(string, string.substring(0, sliceSize))) {
+            return string.length() / sliceSize;
         } else {
-            return getMaxPieces(x, sliceSize+1);
+            return getMaxPieces(string, sliceSize+1);
         }
     }
-
-//    public static int getMaxPieces(String x, int numPieces) {
-//        System.out.println(numPieces);
-//        int pieceSize = x.length() / numPieces;
-//        if (numPieces == 1 || seqRepeats(0, pieceSize, x))
-//            return numPieces;
-//        return getMaxPieces(x, numPieces / 2);
-//    }
     
     /*
     Returns true if a given string is comprised of repetitions of a substring.
@@ -45,9 +35,12 @@ public class Solution {
     public static boolean isRepeatedSubstring(String string, String substring) {
         return isRepeatedSubstring(string, substring, 0);
     }
+    
     /*
     Returns true if a given string is comprised of repetitions of a substring
     from checkIndex onwards.
+    checkIndex must be 0 or a multiple of substring length, but must be < string
+    length.
      */
     private static boolean isRepeatedSubstring(String string, String substring, int checkIndex) {
         if (string.length() == 0 || substring.length() == 0 || string.length() % substring.length() != 0) {return false;}
@@ -58,5 +51,4 @@ public class Solution {
         }
         return false;
     }
-    
 }
