@@ -17,7 +17,7 @@ public class Solution {
     
     /*
     Returns the max number of equal substrings of a certain length that a string
-    can be divided into.
+    can be divided into. sliceSize must be 0 (unless called recursively).
      */
     private static int getMaxPieces(String string, int sliceSize) {
         if (string.isEmpty()) return 0;
@@ -46,9 +46,7 @@ public class Solution {
     
     /*
     Returns true if a given string is comprised of repetitions of a substring
-    from checkIndex onwards.
-    checkIndex must be 0 or a multiple of substring length, but must be < string
-    length.
+    from checkIndex onwards. checkIndex must be 0 (unless called recursively).
      */
     private static boolean isRepeatedSubstring(String string, String substring, int checkIndex) {
         if (string.isEmpty() || substring.isEmpty() || string.length() % substring.length() != 0) {
