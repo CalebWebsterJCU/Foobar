@@ -31,7 +31,7 @@ public class Solution {
             if (newSliceSize > string.length() / 2) {
                 newSliceSize = string.length();  // Skip to end when > half
             }
-            return getMaxPieces(string, newSliceSize);`
+            return getMaxPieces(string, newSliceSize);
         }
     }
     
